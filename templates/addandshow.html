@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-sm-2">
+          <h5 class="text-center alert alert-info">Add employees</h5>
+
+            <form action="" method="post">
+                {% csrf_token %}
+                {{form.as_p}}
+                <input type="submit" value="add_show" class="btn btn-success">
+            </form>
+
+    </div>
+
+    <div class="col-sm-10">
+        <h5 class="text-center alert alert-info">Show employees</h5>
+        {% if showdata %}
+<!--        <h5>Here is your record</h5>-->
+        <table class="table">
+  <thead>
+    <tr>
+        <th scope="col">id</th>
+      <th scope="col">NAME</th>
+      <th scope="col">EMAIL</th>
+      <th scope="col">LOCATION</th>
+        <th scope="col">TECHNOLOGY</th>
+        <th scope="col">DOMAIN</th>
+        <th scope="col">PROJECT</th>
+        <th scope="col">BLOGS</th>
+        <th scope="col">SCORE</th>
+         <th scope="col">ACTION</th>
+
+    </tr>
+  </thead>
+
+  <tbody>
+  {% for i in showdata %}
+    <tr>
+       <td>{{i.id}}</td>
+      <td>{{i.name}}</td>
+      <td>{{i.email}}</td>
+      <td>{{i.location}}</td>
+        <td>{{i.technology}}</td>
+        <td>{{i.domain}}</td>
+        <td>{{i.project}}</td>
+        <td>{{i.blogs}}</td>
+        <td> {{i.score}}</td>
+        <td>
+             <form action="{% url 'updatedata' i.id %}" method="get" class="d-inline">
+                {% csrf_token%}
+                <input type="submit" value="Edit" class="btn btn-success">
+            </form>
+
+            <form action="{% url 'deletedata' i.id %}" method="post" >
+                {% csrf_token%}
+                <input type="submit" value="Delete" class="btn btn-danger">
+            </form>
+
+        </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+        {% else %}
+
+        <h2 class="text-center alert alert-warning">No records found</h2>
+        {% endif %}
+
+   <form action="{% url 'searchdata' %}" method="get" >
+            <input type="submit" value="search" class="text-center btn btn-info">
+
+        </form>
+
+
+    </div>
+
+
+</div>
+
+
+{% endblock content %}

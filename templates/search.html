@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h4 class="text-center alert alert-light">Search employees here !!!</h4>
+</div>
+
+<div class="row">
+    <div class="col-sm-4">
+            <form action="{% url 'searchdata' %}" method="get" class="">
+                <label>Enter number of developer</label><br>
+                <input name="q3" type="number" placeholder="" class="form-control"><br>
+
+                <label>Enter Technology of developer</label><br>
+                <input name="q1" type="text" placeholder="enter technology" class="form-control"><br>
+
+                <label>Enter Location of developer</label><br>
+                <input name="q2" type="text" placeholder="enter location" class="form-control"><br>
+
+                <input type="submit" value="Go" class="text-center btn btn-success">
+            </form>
+
+    </div>
+    <div class="col-sm-8">
+         <h5 class="text-center alert alert-info">your search result here</h5>
+        {% if search_result %}
+        <table class="table">
+  <thead>
+  <tr>
+      <th>ID</th>
+      <th>NAME</th>
+      <th>Email</th>
+  </tr>
+  </thead>
+
+    <tbody>
+    {% for i in search_result %}
+    <tr>
+        <td>{{i.id}}</td>
+        <td>{{i.name}}</td>
+        <td>{{i.email}}</td>
+    </tr>
+        {%  endfor%}
+    </tbody>
+
+</table>
+        {% else %}
+
+        <h2 class="text-center alert alert-warning">No records found</h2>
+        {% endif %}
+    </div>
+
+</div>
+<div>
+     <a href="{% url 'addandshow' %}" class="text-center btn btn-info">Back to home</a>
+</div>
+
+
+
+{% endblock content %}
